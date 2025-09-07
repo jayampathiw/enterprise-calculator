@@ -1,9 +1,9 @@
 :root {
-  /* Original Color palette */
+  /* Updated Color palette */
   --primary-color: #4ecdc4;
   --primary-color-hover: #3db3aa;
-  --background-gradient-start: #4ecdc4;
-  --background-gradient-end: #44a08d;
+  --background-gradient-start: #f5f5f5;
+  --background-gradient-end: #e8e8e8;
   
   /* Light theme variables */
   --bg-color: rgba(255, 255, 255, 0.95);
@@ -77,6 +77,8 @@
   --number-btn-bg: #555;
   --number-btn-hover: #666;
   --number-btn-shadow: rgba(0, 0, 0, 0.2);
+  --background-gradient-start: #2a2a2a;
+  --background-gradient-end: #1a1a1a;
   
   /* Dark theme toggle */
   --toggle-bg-light: #2a2a2a;
