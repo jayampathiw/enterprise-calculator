@@ -835,7 +835,7 @@ const CalculatorController = (() => {
 
     // Public interface
     return {
-        handleKeypadClick: (e) => {
+        handleKeypadClick: function(e) {
             const target = e.target;
             CalculatorView.animateButton(target);
             
@@ -860,18 +860,21 @@ const CalculatorController = (() => {
                     case 'undo':
                         this.undo();
                         break;
+                    case 'percentage':
+                        this.performPercentage();
+                        break;
                 }
             }
         },
 
-        handleScientificClick: (e) => {
+        handleScientificClick: function(e) {
             const target = e.target;
             if (target.dataset.function) {
                 this.performScientificFunction(target.dataset.function);
             }
         },
 
-        handleMemoryClick: (e) => {
+        handleMemoryClick: function(e) {
             const target = e.target;
             const action = target.dataset.memory;
             const current = CalculatorModel.getCurrentValue();
@@ -901,7 +904,7 @@ const CalculatorController = (() => {
             }
         },
 
-        handleModeToggle: (e) => {
+        handleModeToggle: function(e) {
             const mode = e.target.dataset.mode;
             const isScientific = mode === 'scientific';
             
@@ -912,23 +915,23 @@ const CalculatorController = (() => {
             CalculatorView.showToast(`${mode} mode activated`);
         },
 
-        handleThemeToggle: () => {
+        handleThemeToggle: function() {
             const newTheme = CalculatorView.toggleTheme();
             CalculatorView.showToast(`${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)} theme activated`);
         },
 
-        handleHistoryToggle: (e) => {
+        handleHistoryToggle: function(e) {
             const isShowing = CalculatorView.toggleHistoryPanel();
             CalculatorView.updateHistoryPanel(CalculatorModel.getCalculationHistory());
             CalculatorView.showToast(isShowing ? 'History shown' : 'History hidden');
         },
         
-        handleClearHistory: (e) => {
+        handleClearHistory: function(e) {
             CalculatorModel.clearHistory();
             CalculatorView.showToast('History cleared');
         },
 
-        handleKeyboard: (e) => {
+        handleKeyboard: function(e) {
             // Prevent default for calculator keys
             if (/[0-9+\-*/.=]/.test(e.key) || ['Enter', 'Escape', 'Backspace'].includes(e.key)) {
                 e.preventDefault();
@@ -951,7 +954,7 @@ const CalculatorController = (() => {
             }
         },
 
-        deleteLast: () => {
+        deleteLast: function() {
             try {
                 const current = CalculatorModel.getCurrentValue();
                 if (current.length > 1 && current !== '0') {
@@ -965,7 +968,7 @@ const CalculatorController = (() => {
             }
         },
 
-        inputDecimal: () => {
+        inputDecimal: function() {
             try {
                 if (CalculatorModel.isWaitingForOperand()) {
                     CalculatorModel.setCurrentValue('0.');
@@ -978,8 +981,24 @@ const CalculatorController = (() => {
                 CalculatorView.showError('Decimal error');
             }
         },
+        
+        performPercentage: function() {
+            try {
+                const current = parseFloat(CalculatorModel.getCurrentValue());
+                if (!isNaN(current)) {
+                    const result = current / 100;
+                    const formatted = formatNumber(result);
+                    CalculatorModel.setCurrentValue(formatted);
+                    CalculatorModel.setWaitingForOperand(true);
+                    updateView();
+                    CalculatorView.showToast('Percentage calculated');
+                }
+            } catch (error) {
+                CalculatorView.showError('Percentage error');
+            }
+        },
 
-        performScientificFunction: (func) => {
+        performScientificFunction: function(func) {
             try {
                 CalculatorView.clearError();
                 let result;
@@ -1011,7 +1030,7 @@ const CalculatorController = (() => {
             }
         },
 
-        undo: () => {
+        undo: function() {
             const commandHistory = CalculatorModel.getCommandHistory();
             if (commandHistory.undo()) {
                 updateView();
@@ -1021,14 +1040,14 @@ const CalculatorController = (() => {
             }
         },
 
-        loadFromHistory: (value) => {
+        loadFromHistory: function(value) {
             CalculatorModel.setCurrentValue(value.toString());
             CalculatorModel.setWaitingForOperand(true);
             updateView();
             CalculatorView.showToast('Loaded from history');
         },
 
-        init: () => {
+        init: function() {
             try {
                 CalculatorView.bindEvents(this);
                 updateView();
