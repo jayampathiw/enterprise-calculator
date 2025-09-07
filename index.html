@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <div class="toggle-switch">
+            <input type="checkbox" id="theme-toggle-checkbox" class="toggle-checkbox">
+            <label for="theme-toggle-checkbox" class="toggle-label">
+                <span class="toggle-slider">
+                    <span class="toggle-icon sun">☀️</span>
+                    <span class="toggle-icon moon">🌙</span>
+                </span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Mode Controls -->
+    <div class="mode-controls">
+        <button class="mode-toggle active" data-mode="basic">Basic</button>
+        <button class="mode-toggle" data-mode="scientific">Scientific</button>
+        <button class="mode-toggle" data-action="history">📋</button>
+    </div>
+
+    <!-- History Panel -->
+    <div class="history-panel" id="historyPanel">
+        <div class="history-header">
+            <h3>History</h3>
+            <button class="history-clear" data-action="clear-history">Clear</button>
+        </div>
+        <div class="history-content">
+            <!-- History items will be dynamically added here -->
+        </div>
+    </div>
+    
+    <div class="calculator-container">
+        <div class="calculator" id="calculator">
+            <!-- Memory Indicator -->
+            <div class="memory-indicator" id="memoryIndicator"></div>
+            
+            <div class="display">
+                <div class="display__calculation" id="calculation">0</div>
+                <div class="display__result" id="result">0</div>
+            </div>
+
+            <!-- Memory Functions (visible when needed) -->
+            <div class="memory-functions" id="memoryFunctions">
+                <button class="btn btn--memory" data-memory="clear">MC</button>
+                <button class="btn btn--memory" data-memory="recall">MR</button>
+                <button class="btn btn--memory" data-memory="add">M+</button>
+                <button class="btn btn--memory" data-memory="subtract">M-</button>
+            </div>
+
+            <!-- Scientific Functions (hidden by default) -->
+            <div class="scientific-functions" id="scientificFunctions">
+                <button class="btn btn--function" data-function="sin">sin</button>
+                <button class="btn btn--function" data-function="cos">cos</button>
+                <button class="btn btn--function" data-function="tan">tan</button>
+                <button class="btn btn--function" data-function="log">log</button>
+                <button class="btn btn--function" data-function="ln">ln</button>
+                <button class="btn btn--function" data-function="sqrt">√</button>
+                <button class="btn btn--function" data-function="power">x²</button>
+                <button class="btn btn--function" data-function="factorial">x!</button>
+                <button class="btn btn--function" data-function="pi">π</button>
+                <button class="btn btn--function" data-function="e">e</button>
+            </div>
+            
+            <div class="keypad" id="keypad">
+                <!-- Row 1 -->
+                <button class="btn btn--function" data-action="clear">AC</button>
+                <button class="btn btn--function" data-action="undo">↶</button>
+                <button class="btn btn--function" data-action="percentage">%</button>
+                <button class="btn btn--operator" data-operator="/">÷</button>
+                
+                <!-- Row 2 -->
+                <button class="btn btn--number" data-number="7">7</button>
+                <button class="btn btn--number" data-number="8">8</button>
+                <button class="btn btn--number" data-number="9">9</button>
+                <button class="btn btn--operator" data-operator="*">×</button>
+                
+                <!-- Row 3 -->
+                <button class="btn btn--number" data-number="4">4</button>
+                <button class="btn btn--number" data-number="5">5</button>
+                <button class="btn btn--number" data-number="6">6</button>
+                <button class="btn btn--operator" data-operator="-">−</button>
+                
+                <!-- Row 4 -->
+                <button class="btn btn--number" data-number="1">1</button>
+                <button class="btn btn--number" data-number="2">2</button>
+                <button class="btn btn--number" data-number="3">3</button>
+                <button class="btn btn--operator" data-operator="+">+</button>
+                
+                <!-- Row 5 -->
+                <button class="btn btn--number btn--zero" data-number="0">0</button>
+                <button class="btn btn--number" data-action="decimal">.</button>
+                <button class="btn btn--equals" data-action="equals">=</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
